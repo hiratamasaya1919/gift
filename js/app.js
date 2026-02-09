@@ -209,14 +209,9 @@
 
         html += '<div class="results-grid two-column">';
 
-        html += '<div class="results-column left-column">';
-        html += renderOptimalSection(results.optimal);
-        html += renderUnnecessarySection(results.tailor, results.unchi);
-        html += '</div>';
-
-        html += '<div class="results-column right-column">';
-        html += renderFreeChoiceSection(results.freeChoice);
-        html += '</div>';
+        html += '<div class="section-optimal">' + renderOptimalSection(results.optimal) + '</div>';
+        html += '<div class="section-freechoice">' + renderFreeChoiceSection(results.freeChoice) + '</div>';
+        html += '<div class="section-unnecessary">' + renderUnnecessarySection(results.tailor, results.unchi) + '</div>';
 
         html += '</div>';
 
