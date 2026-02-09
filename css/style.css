@@ -951,8 +951,25 @@ body {
 
     .results-grid,
     .results-grid.two-column {
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column;
         gap: 16px;
+    }
+
+    .results-column {
+        display: contents;
+    }
+
+    .section-optimal {
+        order: 1;
+    }
+
+    .section-freechoice {
+        order: 2;
+    }
+
+    .section-unnecessary {
+        order: 3;
     }
 
     /* Remove inner scroll from sections */
