@@ -149,9 +149,18 @@ const DataManager = (() => {
     function getAllStudents() {
         if (!studentsData) return [];
 
-        return Object.values(studentsData).sort((a, b) =>
+        const allStudents = Object.values(studentsData).sort((a, b) =>
             a.Name.localeCompare(b.Name, 'ja')
         );
+
+        const seen = new Set();
+        return allStudents.filter(student => {
+            if (seen.has(student.Name)) {
+                return false;
+            }
+            seen.add(student.Name);
+            return true;
+        });
     }
 
     function getStudent(id) {
