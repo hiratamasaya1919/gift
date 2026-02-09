@@ -203,7 +203,11 @@
 
         elements.welcomeMessage.style.display = 'none';
 
-        let html = '<div class="results-grid two-column">';
+        let html = '';
+
+        html += '<button class="save-image-btn" id="saveImageBtn">📷 画像として保存</button>';
+
+        html += '<div class="results-grid two-column">';
 
         html += '<div class="results-column left-column">';
         html += renderOptimalSection(results.optimal);
@@ -221,6 +225,51 @@
         addTooltipListeners();
         convertImagesToBlob();
         loadMultiplierIcons();
+
+        const saveBtn = document.getElementById('saveImageBtn');
+        if (saveBtn) {
+            saveBtn.addEventListener('click', saveResultsAsImage);
+        }
+    }
+
+    async function saveResultsAsImage() {
+        const saveBtn = document.getElementById('saveImageBtn');
+        const originalText = saveBtn.textContent;
+        saveBtn.textContent = '保存中...';
+        saveBtn.disabled = true;
+
+        try {
+            await new Promise(resolve => setTimeout(resolve, 100));
+
+            const resultsGrid = elements.resultsContainer.querySelector('.results-grid');
+            if (!resultsGrid) return;
+
+            const canvas = await html2canvas(resultsGrid, {
+                backgroundColor: '#0b0f14',
+                scale: 2,
+                useCORS: true,
+                allowTaint: true,
+                logging: false
+            });
+
+            const link = document.createElement('a');
+            link.download = 'gift-analysis-' + Date.now() + '.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+
+            saveBtn.textContent = '✓ 保存完了';
+            setTimeout(() => {
+                saveBtn.textContent = originalText;
+                saveBtn.disabled = false;
+            }, 2000);
+        } catch (error) {
+            console.error('Image save failed:', error);
+            saveBtn.textContent = '保存失敗';
+            setTimeout(() => {
+                saveBtn.textContent = originalText;
+                saveBtn.disabled = false;
+            }, 2000);
+        }
     }
 
     async function convertImagesToBlob() {
