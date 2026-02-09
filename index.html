@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>キンタマ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1>キンタマ</h1>
+            </div>
+
+            <div class="sidebar-content">
+                <button class="btn btn-primary btn-select-chars" id="openCharSelector">
+                    キャラクター選択
+                </button>
+
+                <div class="selected-chars-section">
+                    <div class="section-label">選択中 (<span id="selectedCount">0</span>)</div>
+                    <div class="selected-chars-list" id="selectedCharsList">
+                        <div class="empty-state">キャラクターを選択してください</div>
+                    </div>
+                </div>
+
+                <button class="btn btn-analyze" id="analyzeBtn" disabled>
+                    分析開始
+                </button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="loading-overlay" id="loadingOverlay">
+                <div class="loading-spinner"></div>
+            </div>
+
+            <div class="welcome-message" id="welcomeMessage">
+                <p>キャラクターを選択して分析を開始してください</p>
+            </div>
+
+            <div class="results-container" id="resultsContainer"></div>
+        </main>
+
+        <div class="overlay" id="charSelectorOverlay">
+            <div class="overlay-content">
+                <div class="overlay-header">
+                    <h2>キャラクター選択</h2>
+                    <div class="overlay-actions">
+                        <button class="btn btn-ghost" id="clearAllBtn">全解除</button>
+                        <button class="btn btn-primary" id="confirmSelectionBtn">選択完了</button>
+                    </div>
+                </div>
+                <div class="char-grid" id="charGrid"></div>
+            </div>
+        </div>
+
+        <script src="js/data.js"></script>
+        <script src="js/analyzer.js"></script>
+        <script src="js/app.js"></script>
+</body>
+
+</html>
