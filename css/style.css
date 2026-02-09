@@ -906,8 +906,15 @@ body {
 
 /* ==================== Mobile Responsive ==================== */
 @media (max-width: 768px) {
+    body {
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
     .app-container {
         flex-direction: column;
+        height: auto;
+        min-height: 100vh;
     }
 
     .sidebar {
