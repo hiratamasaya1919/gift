@@ -407,30 +407,6 @@ body {
     .section-unnecessary {
         order: 3;
     }
-
-    .section-freechoice .section-body,
-    .section-optimal .section-body {
-        grid-template-columns: 1fr;
-    }
-
-    .char-gift-row {
-        gap: 8px;
-        padding: 8px;
-    }
-
-    .row-char-icon {
-        width: 36px;
-        height: 36px;
-    }
-
-    .gift-item {
-        width: 36px;
-        height: 36px;
-    }
-
-    .row-gifts {
-        gap: 6px;
-    }
 }
 
 .result-section {
@@ -1203,5 +1179,32 @@ body {
 
     .overlay-actions .btn {
         flex: 1;
+    }
+}
+
+@media (max-width: 1200px) {
+
+    .section-freechoice .section-body,
+    .section-optimal .section-body {
+        grid-template-columns: 1fr;
+    }
+
+    .char-gift-row {
+        gap: 8px;
+        padding: 8px;
+    }
+
+    .row-char-icon {
+        width: 36px;
+        height: 36px;
+    }
+
+    .gift-item {
+        width: 36px;
+        height: 36px;
+    }
+
+    .row-gifts {
+        gap: 6px;
     }
 }
