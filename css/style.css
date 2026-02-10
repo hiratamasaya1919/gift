@@ -408,7 +408,8 @@ body {
         order: 3;
     }
 
-    .section-freechoice .section-body {
+    .section-freechoice .section-body,
+    .section-optimal .section-body {
         grid-template-columns: 1fr;
     }
 }
@@ -451,6 +452,12 @@ body {
     padding-right: 20px;
 }
 
+.section-optimal .section-body {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 4px 16px;
+}
+
 .char-gift-row {
     display: flex;
     align-items: flex-start;
@@ -464,9 +471,6 @@ body {
     background: var(--bg-tertiary);
 }
 
-.char-gift-row+.char-gift-row {
-    margin-top: 8px;
-}
 
 .row-char-icon {
     width: 48px;
