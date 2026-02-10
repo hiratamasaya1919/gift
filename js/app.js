@@ -207,11 +207,15 @@
 
         html += '<button class="save-image-btn" id="saveImageBtn">📷 画像として保存</button>';
 
-        html += '<div class="results-grid two-column">';
+        html += '<div class="results-grid">';
 
+        html += '<div class="left-column">';
         html += '<div class="section-optimal">' + renderOptimalSection(results.optimal) + '</div>';
-        html += '<div class="section-freechoice">' + renderFreeChoiceSection(results.freeChoice) + '</div>';
         html += '<div class="section-unnecessary">' + renderUnnecessarySection(results.tailor, results.unchi) + '</div>';
+        html += '</div>';
+        html += '<div class="right-column">';
+        html += '<div class="section-freechoice">' + renderFreeChoiceSection(results.freeChoice) + '</div>';
+        html += '</div>';
 
         html += '</div>';
 
