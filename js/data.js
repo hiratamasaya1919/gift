@@ -1,19 +1,5 @@
 const DataManager = (() => {
-    const _0xf3 = [58, 32];
-    const _0xa1 = (d) => d.map(v => String.fromCharCode(v ^ (_0xf3[0] + _0xf3[1]))).join('');
-    const _c = {
-        _a: _0xa1([50, 46, 46, 42, 41, 96, 117, 117, 41, 57, 50, 59, 54, 63, 62, 56, 116, 57, 53, 55, 117]),
-        _b: _0xa1([62, 59, 46, 59, 117, 48, 42, 117]),
-        _s: _0xa1([41, 46, 47, 62, 63, 52, 46, 41, 116, 55, 51, 52, 116, 48, 41, 53, 52]),
-        _i: _0xa1([51, 46, 63, 55, 41, 116, 55, 51, 52, 116, 48, 41, 53, 52]),
-        _p1: _0xa1([51, 55, 59, 61, 63, 41, 117, 41, 46, 47, 62, 63, 52, 46, 117, 51, 57, 53, 52, 117]),
-        _p2: _0xa1([51, 55, 59, 61, 63, 41, 117, 51, 46, 63, 55, 117, 51, 57, 53, 52, 117]),
-        _p3: _0xa1([51, 55, 59, 61, 63, 41, 117, 47, 51, 117])
-    };
-
-    const _getEndpoint = (type) => _c._a + _c._b + (type === 's' ? _c._s : _c._i);
-    const _getImagePath = (type, id) => _c._a + (type === 's' ? _c._p1 : _c._p2) + id + '.webp';
-    const _getUiImagePath = (name) => _c._a + _c._p3 + name + '.png';
+    const _b = 'https://hiratamasaya.810114514.workers.dev';
 
     let studentsData = null;
     let itemsData = null;
@@ -25,8 +11,8 @@ const DataManager = (() => {
     async function fetchData() {
         try {
             const [studentsResponse, itemsResponse] = await Promise.all([
-                fetch(_getEndpoint('s')),
-                fetch(_getEndpoint('i'))
+                fetch(_b + '/api/students'),
+                fetch(_b + '/api/items')
             ]);
 
             if (!studentsResponse.ok || !itemsResponse.ok) {
@@ -52,16 +38,16 @@ const DataManager = (() => {
     function processStudents(rawData) {
         const processed = {};
 
-        for (const [id, student] of Object.entries(rawData)) {
-            if (!student.Id || !student.Name || !student.FavorItemTags) {
+        for (const [id, s] of Object.entries(rawData)) {
+            if (!s.i || !s.n || !s.t) {
                 continue;
             }
 
             processed[id] = {
-                Id: student.Id,
-                Name: student.Name,
-                FavorItemTags: student.FavorItemTags || [],
-                FavorItemUniqueTags: student.FavorItemUniqueTags || []
+                Id: s.i,
+                Name: s.n,
+                FavorItemTags: s.t || [],
+                FavorItemUniqueTags: s.u || []
             };
         }
 
@@ -72,20 +58,16 @@ const DataManager = (() => {
         const gifts = {};
 
         for (const [id, item] of Object.entries(rawData)) {
-            if (item.Category !== 'Favor') {
-                continue;
-            }
-
-            if (!item.Id || !item.Name || !item.Tags || !item.Icon) {
+            if (!item.i || !item.n || !item.t || !item.c) {
                 continue;
             }
 
             gifts[id] = {
-                Id: item.Id,
-                Name: item.Name,
-                Rarity: item.Rarity || 'N',
-                Tags: item.Tags || [],
-                Icon: item.Icon
+                Id: item.i,
+                Name: item.n,
+                Rarity: item.r || 'N',
+                Tags: item.t || [],
+                Icon: item.c
             };
         }
 
@@ -121,11 +103,11 @@ const DataManager = (() => {
     }
 
     function getStudentImageUrl(studentId) {
-        return _getImagePath('s', studentId);
+        return _b + '/api/image/student/icon/' + studentId + '.webp';
     }
 
     function getGiftImageUrl(iconName) {
-        return _getImagePath('i', iconName);
+        return _b + '/api/image/item/icon/' + iconName + '.webp';
     }
 
     async function getCachedImageUrl(originalUrl) {
@@ -133,18 +115,18 @@ const DataManager = (() => {
     }
 
     async function getStudentImageBlob(studentId) {
-        const url = _getImagePath('s', studentId);
+        const url = getStudentImageUrl(studentId);
         return await loadImageAsBlob(url);
     }
 
     async function getGiftImageBlob(iconName) {
-        const url = _getImagePath('i', iconName);
+        const url = getGiftImageUrl(iconName);
         return await loadImageAsBlob(url);
     }
 
     async function getMultiplierIconBlob(multiplier) {
         if (multiplier < 2 || multiplier > 4) return null;
-        const url = _getUiImagePath(`Cafe_Interaction_Gift_0${multiplier}`);
+        const url = _b + '/api/image/ui/Cafe_Interaction_Gift_0' + multiplier + '.png';
         return await loadImageAsBlob(url);
     }
 
